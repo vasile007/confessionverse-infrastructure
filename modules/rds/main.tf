@@ -9,8 +9,8 @@ resource "aws_db_subnet_group" "this" {
 
 resource "aws_db_instance" "this" {
   identifier             = "${var.name}-infrastructure-db"
-  engine                 = "postgres"
-  engine_version         = "15"
+  engine                 = "mysql"
+  engine_version         = "8.0"
   instance_class         = var.instance_class
   allocated_storage      = 20
   db_name                = var.db_name
