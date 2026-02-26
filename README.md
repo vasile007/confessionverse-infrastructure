@@ -1,33 +1,43 @@
 ConfessionVerse – AWS Cloud Infrastructure (Terraform)
 
-Production-grade cloud infrastructure designed and implemented using Terraform to provision and manage AWS resources for the ConfessionVerse platform.
+Production-grade AWS infrastructure provisioned using Terraform to support a fully containerized full-stack application with automated CI/CD deployment.
 
-This repository defines a secure, modular, and reproducible AWS environment following Infrastructure-as-Code best practices.
+This repository defines a secure, modular, and reproducible cloud environment aligned with modern DevOps and Infrastructure-as-Code best practices.
 
 🏗 Architecture Overview
-Current Implementation (Cost-Optimized Development Environment)
 
-This environment is intentionally optimized for cost while maintaining production-aligned architecture patterns.
+Current implementation represents a production-aligned, cost-optimized single-instance architecture with automated container deployment.
 
-Architecture Diagram (Current)
+Current Architecture
+
 Internet
-   │
-   ▼
+↓
 Public Subnet
-   │
-   └── EC2 (Ubuntu)
-         - Dockerized application
-         - SSM-only access
-         - Security Groups restricted
-   │
-   ▼
+↓
+EC2 (Ubuntu 22.04)
+
+Docker runtime
+
+Nginx container (port 80 exposed)
+
+Spring Boot container (port 8082 internal)
+
+IAM Role attached
+
+SSM-only access (no SSH)
+
+↓
 Private Subnets
-   │
-   └── Amazon RDS (PostgreSQL)
-         - Not publicly accessible
-         - Encrypted at rest
-         - Security Group restricted
-🔧 Infrastructure Components
+↓
+Amazon RDS (MySQL 8)
+
+Not publicly accessible
+
+Encrypted at rest
+
+Access restricted via Security Groups
+
+☁ Infrastructure Components
 Networking
 
 Custom VPC
@@ -38,71 +48,85 @@ Custom VPC
 
 Internet Gateway
 
-Route Tables (public/private separation)
+Public & Private Route Tables
 
-Network segmentation enforced via CIDR
+CIDR-based network segmentation
 
 Compute
 
 EC2 (Ubuntu 22.04)
 
-Docker-based application hosting
+IAM Instance Profile
 
-IAM Role attached
+Docker runtime
 
-SSM-only access (no SSH exposure)
+Access exclusively via AWS Systems Manager (SSM)
+
+No SSH port exposed
 
 Database
 
-Amazon RDS (PostgreSQL)
+Amazon RDS (MySQL 8)
 
 Deployed in private subnets
 
-Not publicly accessible
-
 Security Group allows access only from EC2
 
-Encryption at rest enabled
+Encryption at rest (AWS KMS)
 
-Automated backups configured (dev-optimized retention)
+Automated backups enabled
 
-Security Model
+Container Registry
 
-No SSH (port 22 disabled)
+Amazon ECR repositories
+
+confessionverse-backend
+
+confessionverse-frontend
+
+EC2 authenticates via IAM Role (no static credentials)
+
+🔐 Security Model
+
+No SSH (port 22 closed)
 
 Access via AWS Systems Manager (Session Manager)
 
-Principle of least privilege IAM roles
+IAM role-based authentication for ECR
+
+Principle of least privilege
+
+Database fully isolated from public internet
 
 Security Groups enforce strict inbound rules
 
-Database isolated from public internet
+No AWS credentials stored on EC2
 
-🔐 Access Model (Hardened)
+🔄 CI/CD Integration
 
-EC2 access is handled via:
+Infrastructure supports automated application deployment.
 
-AWS Systems Manager (SSM)
+Deployment flow:
 
-IAM Role: AmazonSSMManagedInstanceCore
+Developer push (main branch)
+↓
+GitHub Actions
+↓
+Docker image build
+↓
+Push to Amazon ECR
+↓
+AWS Systems Manager remote command
+↓
+Container restart on EC2
 
-No SSH keys
-
-No exposed management ports
-
-This eliminates public administrative attack surface.
+No manual SSH.
+No manual Docker commands.
+Immutable container deployment model.
 
 📦 Infrastructure as Code
 
-The entire infrastructure is provisioned using Terraform:
-
-Modular structure
-
-Reusable components
-
-Version-controlled definitions
-
-Declarative resource management
+Provisioned entirely using Terraform.
 
 Project structure:
 
@@ -115,153 +139,93 @@ confessionverse-infrastructure/
 ├── terraform.tfvars (excluded from Git)
 │
 └── modules/
-     ├── vpc/
-     ├── security/
-     ├── ec2/
-     └── rds/
+    ├── vpc/
+    ├── security/
+    ├── ec2/
+    └── rds/
+Features
+
+Modular architecture
+
+Reusable components
+
+Declarative resource management
+
+Idempotent provisioning
+
+Version-controlled infrastructure
+
 ☁ Remote Terraform State
 
-To follow production best practices, Terraform state is stored remotely.
-
-Backend Configuration
+State management:
 
 S3 bucket (versioning enabled)
 
 DynamoDB table for state locking
 
-State file encryption enabled
+State encryption enabled
 
 Public access blocked
 
-Benefits
+Benefits:
 
 Prevents state corruption
 
-Enables team collaboration
+Enables safe collaboration
 
-Maintains infrastructure integrity
+Ensures infrastructure integrity
 
-Follows enterprise DevOps standards
-
-🚀 Deployment Workflow
-Initialize
-terraform init
-Plan
-terraform plan
-Apply
-terraform apply
-
-Infrastructure is fully reproducible from code.
-
-🧠 Production-Grade Architecture (Design Proposal)
-
-The current setup is cost-optimized for development.
-In a production-grade environment, the architecture would be extended as follows:
-
-High Availability Layer
-
-Application Load Balancer (ALB)
-
-Auto Scaling Group (multiple EC2 instances)
-
-Multi-AZ deployment
-
-Outbound Internet for Private Subnets
-
-NAT Gateway (for secure outbound traffic)
-
-Private route table updates
-
-Database Resilience
-
-Multi-AZ RDS deployment
-
-Automated failover
-
-Increased backup retention
-
-Security Enhancements
-
-HTTPS via ACM
-
-WAF integration
-
-Centralized logging (CloudWatch)
-
-VPC Flow Logs
-
-Production Architecture Diagram (Proposed)
-Internet
-   │
-   ▼
-Application Load Balancer
-   │
-   ├── EC2 (AZ-a)
-   └── EC2 (AZ-b)
-         │
-         ▼
-     Private Subnets
-         │
-         └── RDS (Multi-AZ)
-🛡 Design Principles
-
-Separation of application and infrastructure layers
+🎯 Design Principles
 
 Infrastructure as Code
 
-Least privilege access
+Immutable container deployment
+
+Least privilege IAM
 
 Network isolation
 
-Secure remote administration
+Secure remote administration (SSM)
+
+Separation of infrastructure and application layers
 
 Cost-aware cloud design
 
-Scalable architecture planning
+Production-aligned architecture patterns
 
-📌 Project Scope
+📊 Current Capabilities
 
-This repository demonstrates:
+This infrastructure currently supports:
 
-Cloud infrastructure engineering
+Fully containerized full-stack application
 
-Secure AWS architecture design
+Automated CI/CD deployment
 
-Terraform modular design
+Secure IAM-based registry authentication
 
-Production-aligned networking
+Private managed database
 
-Infrastructure reproducibility
+Hardened access model
 
-DevOps-ready state management
+Reproducible cloud environment
 
-🔮 Future Improvements
+🔮 Evolution Path (Production Scale)
 
-CI/CD pipeline integration
+Designed for clean extension toward:
 
-Docker image publishing to AWS ECR
+Application Load Balancer (ALB)
 
-Automated deployment workflows
+Auto Scaling Groups
 
-Monitoring & alerting (CloudWatch)
+HTTPS via ACM
 
-HTTPS + custom domain
+Multi-AZ RDS deployment
 
-Horizontal scaling
+CloudWatch centralized logging
 
-👤 Author
+Prometheus + Grafana monitoring
 
-Designed and implemented as part of a full-stack cloud-native architecture project (ConfessionVerse).
-
-This infrastructure complements:
-
-Dockerized React frontend
-
-Dockerized Spring Boot backend
-
-Managed Amazon RDS database
-
-Reverse proxy architecture
+ECS or EKS orchestration
 
 🏁 Summary
 
@@ -271,8 +235,8 @@ Design and implement secure AWS infrastructure
 
 Apply Infrastructure-as-Code principles
 
-Separate application and infrastructure concerns
+Integrate CI/CD with container registry workflows
 
-Optimize cost while planning for production scalability
+Enforce hardened cloud security patterns
 
-Follow modern DevOps and Cloud Engineering practices
+Build production-aligned cloud architecture
