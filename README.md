@@ -7,7 +7,7 @@ This repository defines a secure, modular, and reproducible cloud environment al
 🏗 Architecture Overview
 
 
-<img width="1105" height="713" alt="ConfessionVerse_Advanced_Cloud_Architecture_Clean" src="https://github.com/user-attachments/assets/1ead64a8-012c-4c7a-a031-945d48eb5005" />
+<img width="800" height="600" alt="ConfessionVerse_Advanced_Cloud_Architecture_Clean" src="https://github.com/user-attachments/assets/1ead64a8-012c-4c7a-a031-945d48eb5005" />
 
 
 Current implementation represents a production-aligned, cost-optimized single-instance deployment model.
