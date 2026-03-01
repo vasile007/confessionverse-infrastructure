@@ -1,14 +1,14 @@
-ConfessionVerse – AWS Cloud Infrastructure (Terraform)
+ CONFESSIONVERSE – AWS CLOUD INFRASTRUCTURE (TERRAFORM)
 
 Production-grade AWS infrastructure provisioned using Terraform to support a fully containerized full-stack application with automated CI/CD deployment.
 
-This repository defines a secure, modular, and reproducible cloud environment aligned with modern DevOps and Infrastructure-as-Code best practices.
+This repository defines a secure, modular, and reproducible cloud environment aligned with Infrastructure-as-Code and modern DevOps best practices.
 
 🏗 Architecture Overview
 
-Current implementation represents a production-aligned, cost-optimized single-instance architecture with automated container deployment.
+Current implementation represents a production-aligned, cost-optimized single-instance deployment model.
 
-Current Architecture
+Runtime Flow
 
 Internet
 ↓
@@ -20,11 +20,11 @@ Docker runtime
 
 Nginx container (port 80 exposed)
 
-Spring Boot container (port 8082 internal)
+Spring Boot container (internal port 8082)
 
 IAM Role attached
 
-SSM-only access (no SSH)
+Access via AWS Systems Manager (SSM only, no SSH)
 
 ↓
 Private Subnets
@@ -33,7 +33,7 @@ Amazon RDS (MySQL 8)
 
 Not publicly accessible
 
-Encrypted at rest
+Encrypted at rest (AWS KMS)
 
 Access restricted via Security Groups
 
@@ -60,9 +60,9 @@ IAM Instance Profile
 
 Docker runtime
 
-Access exclusively via AWS Systems Manager (SSM)
+SSM-based administrative access
 
-No SSH port exposed
+No SSH exposure
 
 Database
 
@@ -72,41 +72,43 @@ Deployed in private subnets
 
 Security Group allows access only from EC2
 
-Encryption at rest (AWS KMS)
+Encryption at rest (KMS)
 
 Automated backups enabled
 
 Container Registry
 
-Amazon ECR repositories
+Amazon ECR repositories:
 
 confessionverse-backend
 
 confessionverse-frontend
 
-EC2 authenticates via IAM Role (no static credentials)
+EC2 authenticates via IAM Role
+
+No static AWS credentials stored on instance
 
 🔐 Security Model
 
-No SSH (port 22 closed)
+Port 22 closed (no SSH)
 
-Access via AWS Systems Manager (Session Manager)
+Access exclusively via AWS Systems Manager (Session Manager)
 
 IAM role-based authentication for ECR
 
-Principle of least privilege
+Principle of least privilege applied
 
 Database fully isolated from public internet
 
-Security Groups enforce strict inbound rules
+Strict Security Group inbound rules
 
 No AWS credentials stored on EC2
 
-🔄 CI/CD Integration
+🔄 CI/CD Deployment Architecture
 
-Infrastructure supports automated application deployment.
+Infrastructure supports automated container deployment.
 
-Deployment flow:
+Deployment Flow
 
 Developer push (main branch)
 ↓
@@ -116,7 +118,7 @@ Docker image build
 ↓
 Push to Amazon ECR
 ↓
-AWS Systems Manager remote command
+Remote deployment via AWS Systems Manager
 ↓
 Container restart on EC2
 
@@ -128,16 +130,13 @@ Immutable container deployment model.
 
 Provisioned entirely using Terraform.
 
-Project structure:
-
+Project Structure
 confessionverse-infrastructure/
-│
 ├── main.tf
 ├── providers.tf
 ├── variables.tf
 ├── outputs.tf
 ├── terraform.tfvars (excluded from Git)
-│
 └── modules/
     ├── vpc/
     ├── security/
@@ -157,7 +156,7 @@ Version-controlled infrastructure
 
 ☁ Remote Terraform State
 
-State management:
+State management configuration:
 
 S3 bucket (versioning enabled)
 
@@ -167,7 +166,7 @@ State encryption enabled
 
 Public access blocked
 
-Benefits:
+Benefits
 
 Prevents state corruption
 
@@ -195,11 +194,11 @@ Production-aligned architecture patterns
 
 📊 Current Capabilities
 
-This infrastructure currently supports:
+This infrastructure supports:
 
-Fully containerized full-stack application
+Fully containerized full-stack deployment
 
-Automated CI/CD deployment
+Automated CI/CD integration
 
 Secure IAM-based registry authentication
 
@@ -211,7 +210,7 @@ Reproducible cloud environment
 
 🔮 Evolution Path (Production Scale)
 
-Designed for clean extension toward:
+Designed for extension toward:
 
 Application Load Balancer (ALB)
 
