@@ -147,6 +147,22 @@ Components deployed via Docker:
 * **Node Exporter** – host system metrics
 * **cAdvisor** – Docker container metrics
 
+### Monitoring Dashboards
+
+**Linux host monitoring (Node Exporter)**
+<img width="1269" height="844" alt="Screenshot 2026-03-08 174406" src="https://github.com/user-attachments/assets/15053687-d3cd-4065-b314-ddc573f5d316" />
+
+
+**Docker container monitoring**
+
+<img width="1275" height="853" alt="Screenshot 2026-03-08 174421" src="https://github.com/user-attachments/assets/0fa7dd51-bf15-459a-8faa-e8759f3288b0" />
+
+
+**Container metrics (cAdvisor)**
+
+<img width="1271" height="853" alt="Screenshot 2026-03-08 174430" src="https://github.com/user-attachments/assets/a6b7a32f-99c6-47a5-af73-75e556124258" />
+
+
 Grafana dashboard access:
 
 ```
