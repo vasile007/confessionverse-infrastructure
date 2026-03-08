@@ -17,6 +17,19 @@ This repository defines a secure, modular, and reproducible cloud environment al
 
 <img width="1536" height="1024" alt="Image Mar 8, 2026, 05_58_07 PM" src="https://github.com/user-attachments/assets/1fc3b530-ab54-4dcb-bddb-4cc2e4b4cebf" />
 
+## 🚀 Deploy Infrastructure
+
+Initialize Terraform:
+
+terraform init
+
+Plan infrastructure:
+
+terraform plan
+
+Apply infrastructure:
+
+terraform apply
 
 
 Current implementation represents a **production-aligned, cost-optimized single-instance deployment model**.
@@ -104,6 +117,31 @@ Amazon RDS (MySQL 8)
 * encrypted at rest using AWS KMS
 * automated backups enabled
 * Security Group allows access **only from EC2 instance**
+
+---
+
+## ⚙️ Technology Stack
+
+Infrastructure:
+- AWS (VPC, EC2, RDS, IAM, SSM, ECR)
+- Terraform
+
+Containers:
+- Docker
+- Nginx
+- Spring Boot
+
+Monitoring:
+- Prometheus
+- Grafana
+- Node Exporter
+- cAdvisor
+
+Logging:
+- Amazon CloudWatch
+
+CI/CD:
+- GitHub Actions
 
 ---
 
