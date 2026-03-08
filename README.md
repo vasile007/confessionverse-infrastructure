@@ -137,7 +137,7 @@ Deployment characteristics:
 
 ---
 
-# 📊 Monitoring Stack
+# 📊 Monitoring Stack and Screenshots
 
 Infrastructure includes a monitoring system based on **Prometheus and Grafana**.
 
