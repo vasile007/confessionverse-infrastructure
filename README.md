@@ -150,6 +150,7 @@ Components deployed via Docker:
 ### Monitoring Dashboards
 
 **Linux host monitoring (Node Exporter)**
+
 <img width="1269" height="844" alt="Screenshot 2026-03-08 174406" src="https://github.com/user-attachments/assets/15053687-d3cd-4065-b314-ddc573f5d316" />
 
 
