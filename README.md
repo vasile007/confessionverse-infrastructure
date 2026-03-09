@@ -379,3 +379,8 @@ This project demonstrates the ability to:
 * implement centralized logging and monitoring
 * enforce hardened cloud security patterns
 * build production-aligned cloud architecture
+
+
+  💰 Cost Considerations
+
+Infrastructure designed for low-cost experimentation and learning environments using small instance types and single-instance deployment.
