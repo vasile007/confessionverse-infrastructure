@@ -396,12 +396,27 @@ Infrastructure is designed to evolve toward:
 ---
 
 
-## 🧹 Maintenance & Stability
+## 🧹 Automated Maintenance & Self-Healing
 
-* Automated Docker cleanup (cron job)
-* Log size limits configured to prevent disk overflow
-* Resource-efficient single-instance deployment
-* System designed for long-running uptime stability
+To ensure long-term stability and prevent disk exhaustion, automated cleanup mechanisms have been implemented.
+
+### Disk Cleanup Strategy
+
+The system uses a hybrid approach:
+
+- **Frequent lightweight cleanup (every 10 minutes)**  
+  Removes unused Docker resources and prevents disk buildup.
+
+- **Daily full cleanup (03:00 AM)**  
+  Performs aggressive pruning of containers, images, volumes, and build cache.
+
+### Implementation
+
+Cleanup is executed via cron jobs:
+
+```bash
+*/10 * * * * /home/ubuntu/cleanup.sh >> /home/ubuntu/cleanup.log 2>&1
+0 3 * * * docker system prune -af --volumes
 
 
 # 🏁 Summary
