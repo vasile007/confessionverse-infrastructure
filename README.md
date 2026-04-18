@@ -417,7 +417,7 @@ Cleanup is executed via cron jobs:
 ```bash
 */10 * * * * /home/ubuntu/cleanup.sh >> /home/ubuntu/cleanup.log 2>&1
 0 3 * * * docker system prune -af --volumes
-
+```
 
 # 🏁 Summary
 
