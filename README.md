@@ -15,7 +15,9 @@ This repository defines a secure, modular, and reproducible cloud environment al
 # 🏗 Architecture Overview
 
 
-<img width="1536" height="1024" alt="Image Mar 8, 2026, 05_58_07 PM" src="https://github.com/user-attachments/assets/1fc3b530-ab54-4dcb-bddb-4cc2e4b4cebf" />
+
+<img width="1413" height="1113" alt="infrastructure-diagram" src="https://github.com/user-attachments/assets/b2458101-9c3d-4a68-a79c-54d9abc6875a" />
+
 
 ## 🚀 Deploy Infrastructure
 
