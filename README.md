@@ -3,12 +3,24 @@
 
 
 
-# CONFESSIONVERSE – AWS CLOUD INFRASTRUCTURE (TERRAFORM)
+# Confessionverse – Full AWS Cloud Infrastructure & CI/CD
 
 
-Production-grade AWS infrastructure provisioned using Terraform to support a fully containerized full-stack application with automated CI/CD deployment, centralized logging, and infrastructure monitoring.
+Production-grade AWS infrastructure provisioned using Terraform to support a fully containerized full-stack application.
 
-This repository defines a secure, modular, and reproducible cloud environment aligned with Infrastructure-as-Code and modern DevOps best practices.
+Includes automated CI/CD deployment, centralized logging, infrastructure monitoring, and a live cloud environment.
+
+
+## 🌐 Live Environment (In Development)
+
+https://confessionverse.live
+
+The application is deployed in a live cloud environment and continuously updated via CI/CD.
+
+Note:
+This environment is actively under development and testing. Some features (e.g. payments, integrations) are not fully finalized.
+
+
 
 ---
 
