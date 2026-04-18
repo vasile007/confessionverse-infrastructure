@@ -245,38 +245,47 @@ Security architecture follows hardened cloud practices:
 
 ---
 
-# 🔄 CI/CD Deployment Architecture
+# 🔄 CI/CD Deployment (Production)
 
-Infrastructure supports automated container deployment.
+Deployment is fully automated using GitHub Actions.
 
-## Deployment Flow
+##  Flow
 
 ```id="deployflow"
-Developer Push (main branch)
+git push 
         │
         ▼
 GitHub Actions
         │
         ▼
-Docker Image Build
+SSH
         │
         ▼
-Push to Amazon ECR
+EC2
         │
         ▼
-Remote deployment via AWS Systems Manager
-        │
-        ▼
-Container restart on EC2
+docker-compose up
 ```
 
-Deployment model characteristics:
+Key features:
 
-* no manual SSH
-* no manual Docker commands
-* immutable container deployment
+SSH-based secure deployment (key authentication)
+No manual server interaction
+Automatic container rebuild and restart
+Infrastructure and application fully decoupled
 
 ---
+
+
+## 🖥 Production Server Setup
+
+* EC2 (Ubuntu 22.04)
+* Docker & Docker Compose
+* Nginx reverse proxy with HTTPS (Let's Encrypt)
+* Firewall configured (ports 80, 443, 22)
+* Automated cleanup via cron jobs
+* Docker log rotation configured
+
 
 # 📦 Infrastructure as Code
 
@@ -369,6 +378,15 @@ Infrastructure is designed to evolve toward:
 
 ---
 
+
+## 🧹 Maintenance & Stability
+
+* Automated Docker cleanup (cron job)
+* Log size limits configured to prevent disk overflow
+* Resource-efficient single-instance deployment
+* System designed for long-running uptime stability
+
+
 # 🏁 Summary
 
 This project demonstrates the ability to:
@@ -384,3 +402,21 @@ This project demonstrates the ability to:
   💰 Cost Considerations
 
 Infrastructure designed for low-cost experimentation and learning environments using small instance types and single-instance deployment.
+
+
+## ⚠️ Production Notes
+
+Current architecture is optimized for learning and cost efficiency.
+
+Trade-offs:
+
+* Single EC2 instance (no high availability)
+* No load balancing
+* Minimal redundancy
+
+Designed to evolve into:
+
+* Load balanced architecture (ALB)
+* Auto Scaling
+* Container orchestration (ECS/EKS)
+
