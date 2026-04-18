@@ -61,7 +61,7 @@ EC2 (Ubuntu 22.04)
    │
    └ IAM Role attached
         │
-        └ Access via AWS Systems Manager (SSM only, no SSH)
+        └ Access via SSH (key-based authentication) and AWS Systems Manager (optional)
 
 Private Subnets
    │
@@ -235,8 +235,8 @@ Docker container logs are streamed to CloudWatch, enabling:
 
 Security architecture follows hardened cloud practices:
 
-* Port 22 closed (no SSH)
-* Access exclusively via AWS Systems Manager
+* SSH access enabled with key-based authentication
+* Access can also be managed via AWS Systems Manager
 * IAM role-based authentication for ECR
 * Principle of least privilege applied
 * Database fully isolated from the public internet
@@ -245,35 +245,38 @@ Security architecture follows hardened cloud practices:
 
 ---
 
-# 🔄 CI/CD Deployment (Production)
+### 🔄 CI/CD Deployment (Production)
 
 Deployment is fully automated using GitHub Actions.
 
-##  Flow
+#### Flow
 
-```id="deployflow"
-git push 
-        │
-        ▼
+```text
+git push
+   │
+   ▼
 GitHub Actions
-        │
-        ▼
+   │
+   ▼
 SSH
-        │
-        ▼
+   │
+   ▼
 EC2
-        │
-        ▼
-docker-compose up
+   │
+   ▼
+docker-compose up -d --build
 ```
 
-Key features:
+#### Key Features
 
-SSH-based secure deployment (key authentication)
-No manual server interaction
-Automatic container rebuild and restart
-Infrastructure and application fully decoupled
-
+* SSH-based secure deployment (key authentication)
+* No manual server interaction
+* Automatic container rebuild and restart
+* Infrastructure and application fully decoupled
+* 
+Deployment Behavior
+Zero-downtime oriented deployment (no full stack shutdown)
+Services updated incrementally via Docker Compose
 ---
 
 
