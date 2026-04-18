@@ -11,14 +11,13 @@ Production-grade AWS infrastructure provisioned using Terraform to support a ful
 Includes automated CI/CD deployment, centralized logging, infrastructure monitoring, and a live cloud environment.
 
 
-## 🌐 Live Environment (In Development)
+## 🌐 Live Environment (Active Development)
 
 https://confessionverse.live
 
 The application is deployed in a live cloud environment and continuously updated via CI/CD.
 
-Note:
-This environment is actively under development and testing. Some features (e.g. payments, integrations) are not fully finalized.
+⚠️ Note: The system is currently under active development. Some features (e.g. payments, integrations) are still being finalized.
 
 
 
@@ -116,8 +115,8 @@ EC2 instance running:
 
 Key characteristics:
 
-* **No SSH exposure**
-* Access managed through **AWS Systems Manager Session Manager**
+* SSH access enabled with key-based authentication
+* Access can also be managed via AWS Systems Manager (SSM)
 * Instance authenticates to AWS services using IAM role
 
 ---
@@ -287,10 +286,11 @@ docker-compose up -d --build
 * No manual server interaction
 * Automatic container rebuild and restart
 * Infrastructure and application fully decoupled
-* 
-Deployment Behavior
-Zero-downtime oriented deployment (no full stack shutdown)
-Services updated incrementally via Docker Compose
+  
+### Deployment Behavior
+
+- Minimized downtime deployment using Docker Compose
+- Services updated incrementally via container restarts
 ---
 
 
@@ -378,6 +378,7 @@ This infrastructure supports:
 * container monitoring with Prometheus and Grafana
 * hardened access model
 * reproducible cloud environment
+* automated disk management and self-healing mechanisms via cron jobs
 
 ---
 
